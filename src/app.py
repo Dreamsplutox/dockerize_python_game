@@ -225,7 +225,7 @@ while run:
 	clock.tick(27)
 
 	#win condition
-	if man.score >= 100:
+	if man.score >= 2000:
 		font1 = pygame.font.SysFont('comicsans', 23, True)
 		text = font1.render(rows[2][2], 1, (0, 128, 0))
 		win.blit(text, (250 - (text.get_width()/2), 230))
