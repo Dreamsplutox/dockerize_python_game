@@ -10,4 +10,5 @@ WORKDIR /app
 COPY . /app
 RUN pip install -r requirements.txt
 EXPOSE 5432
-CMD ["python", "app.py"]
+RUN sleep(3000)
+CMD ["python", app.py"]

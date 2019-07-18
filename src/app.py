@@ -1,13 +1,45 @@
 from random import *
 import pygame
 import psycopg2 as p
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
+
+#wait for db
+#sleep(30)
+
 con = p.connect("dbname='python_game_data' user='postgres' host='192.168.99.100' password='postgres'")
 cur = con.cursor()
+'''
+#Creation Database and Tables
+con.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+
+cur = con.cursor()
+cur.execute("CREATE DATABASE python_game_data;")
+
+con = p.connect("dbname='python_game_data' user='postgres' host='192.168.99.100' password='postgre'")
+cur = con.cursor()
+
+cur.execute("CREATE TABLE scores(id SERIAL PRIMARY KEY, score INTEGER);")
+con.commit()
+
+cur.execute("CREATE TABLE game_text(id SERIAL PRIMARY KEY, text_name VARCHAR(255) UNIQUE NOT NULL, text_content VARCHAR(255) NOT NULL);")
+con.commit()
+
+cur.execute("INSERT INTO game_text (text_name, text_content) values ('description', 'Vous devez affronter le goblin et obtenir un maximum de points, bonne chance !');")
+con.commit()
+
+cur.execute("INSERT INTO game_text (text_name, text_content) values ('game_over', 'Vous êtes mort trop de fois, fin de la partie !');")
+con.commit()
+
+cur.execute("INSERT INTO game_text (text_name, text_content) values ('win', 'Vous avez survecu aux attaques des goblins, felicitations !');")
+con.commit()
+'''
 cur.execute("select * from game_text")
 rows=cur.fetchall()
 
 cur.execute("select score from scores ORDER BY score DESC")
 score=cur.fetchall()
+
+
 
 #Game part
 pygame.init()

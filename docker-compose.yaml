@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  db:
+    container_name: postgres_for_python_db
+    image: postgres:11-alpine
+    restart: always
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+    
+    ports:
+      - "5432:5432"
+      - "5433:5433" 
+    networks:
+      - postgres_for_python
+    volumes:
+      - "postgres_for_python_dbdata:/var/lib/postgresql/data"
+  
+  app:
+    build: .
+    container_name: pygame_app
+    image: test_python
+    depends_on:
+      - db
+    networks:
+      - postgres_for_python
+    
+networks:
+  postgres_for_python:
+
+volumes:
+  postgres_for_python_dbdata:
